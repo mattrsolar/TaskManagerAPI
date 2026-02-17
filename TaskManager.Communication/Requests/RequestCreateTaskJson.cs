@@ -2,7 +2,7 @@
 
 namespace TaskManager.Communication.Requests
 {
-    public class RequestRegisterTaskJson
+    public class RequestCreateTaskJson
     {
         public Guid Id { get; set; } 
         public string Name { get; set; }

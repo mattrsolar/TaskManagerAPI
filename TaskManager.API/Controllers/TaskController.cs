@@ -1,6 +1,8 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using TaskManager.Application.UseCases.Task.Create;
 using TaskManager.Communication.Requests;
+using TaskManager.Communication.Responses;
 
 namespace TaskManager.API.Controllers
 {
@@ -9,10 +11,13 @@ namespace TaskManager.API.Controllers
     public class TaskController : ControllerBase
     {
         [HttpPost]
-        public IActionResult CreateTask([FromBody] RequestRegisterTaskJson request)
+        [ProducesResponseType(typeof(ResponseCreateTaskJson),StatusCodes.Status201Created)]
+        public IActionResult CreateTask([FromBody] RequestCreateTaskJson request)
         {
+            var useCase = new CreateTaskUseCase();
 
-            
+            var response = useCase.Execute(request);
+
             return Created();
         }
 
