@@ -1,0 +1,13 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace TaskManager.Communication.Responses
+{
+    public class ResponseGetAllTasksJson
+    {
+        public List<ResponseGetTasksJson> Tasks { get; set; } = [];
+    }
+}

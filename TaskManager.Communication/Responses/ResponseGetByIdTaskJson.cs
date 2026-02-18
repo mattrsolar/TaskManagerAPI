@@ -1,9 +1,8 @@
-﻿
-using TaskManager.Communication.Enums;
+﻿using TaskManager.Communication.Enums;
 
 namespace TaskManager.Communication.Responses
 {
-    public class ResponseCreateTaskJson
+    public class ResponseGetByIdTaskJson
     {
         public Guid Id { get; set; }
         public string Name { get; set; }

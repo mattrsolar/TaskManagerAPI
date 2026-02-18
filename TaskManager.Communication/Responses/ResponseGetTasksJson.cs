@@ -1,9 +1,13 @@
-﻿
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 using TaskManager.Communication.Enums;
 
 namespace TaskManager.Communication.Responses
 {
-    public class ResponseCreateTaskJson
+    public class ResponseGetTasksJson
     {
         public Guid Id { get; set; }
         public string Name { get; set; }
@@ -11,6 +15,5 @@ namespace TaskManager.Communication.Responses
         public PriorityType Priority { get; set; }
         public DateTime DueDate { get; set; }
         public StatusType Status { get; set; }
-
     }
 }
