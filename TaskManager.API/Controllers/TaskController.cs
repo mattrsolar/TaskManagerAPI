@@ -4,6 +4,7 @@ using TaskManager.Application.UseCases.Task.Delete;
 using TaskManager.Application.UseCases.Task.GetAll;
 using TaskManager.Application.UseCases.Task.GetById;
 using TaskManager.Application.UseCases.Task.Update;
+using TaskManager.Application.UseCases.Task.Validations;
 using TaskManager.Communication.Requests;
 using TaskManager.Communication.Responses;
 
@@ -15,10 +16,15 @@ namespace TaskManager.API.Controllers
     {
         [HttpPost]
         [ProducesResponseType(typeof(ResponseCreateTaskJson), StatusCodes.Status201Created)]
+        [ProducesResponseType(typeof(ResponseErrorsJson), StatusCodes.Status400BadRequest)]
         public IActionResult CreateTask([FromBody] RequestTaskJson request)
         {
-            var useCase = new CreateTaskUseCase();
+            var validator = new ValidateTasks().Validate(request);
 
+            if (validator.Errors.Any())
+                return BadRequest(validator);
+
+            var useCase = new CreateTaskUseCase();
             var response = useCase.Execute(request);
 
             return Created(string.Empty, response);
@@ -31,6 +37,11 @@ namespace TaskManager.API.Controllers
 
         public IActionResult UpdateTask([FromRoute] int id, [FromBody] RequestTaskJson request)
         {
+            var validator = new ValidateTasks().Validate(request);
+
+            if (validator.Errors.Any()) 
+                return BadRequest(validator);  
+
             var useCase = new UpdateTaskUseCase();
             useCase.Execute(id, request);
 
@@ -60,10 +71,10 @@ namespace TaskManager.API.Controllers
         {
             var useCase = new GetByIdTaskUseCase();
             var response = useCase.Execute(id);
-
-            //if (!response.)
-            //    return BadRequest();
-
+            
+            if(response is null)
+                return NotFound();
+            
             return Ok(response);
         }
 
@@ -72,7 +83,8 @@ namespace TaskManager.API.Controllers
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(typeof(ResponseErrorsJson), StatusCodes.Status404NotFound)]
         public IActionResult DeleteTask([FromRoute] int id)
-        {
+        {         
+            
             var useCase = new DeleteTaskUseCase();
             useCase.Execute(id);
 

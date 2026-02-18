@@ -5,10 +5,10 @@ namespace TaskManager.Application.UseCases.Task.Update
 {
     public class UpdateTaskUseCase
     {
-        public void Execute(int id, RequestTaskJson request)
+        public ResponseCreateTaskJson Execute(int id, RequestTaskJson request)
         {
 
-            new ResponseCreateTaskJson
+            return new ResponseCreateTaskJson
             {
                 //Id = id,
                 Name = request.Name,
