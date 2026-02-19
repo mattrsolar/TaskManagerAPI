@@ -51,7 +51,7 @@ This project follows the proposal presented in the course, with possible adaptat
 
 ## 📌 Project Status
 
-✅ Completed
+✅ Ongoing 
 
 ---
 
